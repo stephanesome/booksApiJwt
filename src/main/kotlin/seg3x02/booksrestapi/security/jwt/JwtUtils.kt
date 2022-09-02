@@ -2,7 +2,6 @@ package seg3x02.booksrestapi.security.jwt
 
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
@@ -19,13 +18,8 @@ class JwtUtils {
     @Value("\${app.jwtExpirationMs}")
     private val jwtExpirationMs = 0
 
-    // byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
-    // Key key = Keys.hmacShaKeyFor(keyBytes);
-    // jwtBuilder.signWith(key); //or signWith(Key, SignatureAlgorithm)
-
     fun generateJwtToken(authentication: Authentication): String {
         val userPrincipal = authentication.principal as UserDetailsImpl
-        // val key = Keys.secretKeyFor(SignatureAlgorithm.HS256)
         val keyBytes = Decoders.BASE64.decode(jwtSecret)
         val key = Keys.hmacShaKeyFor(keyBytes)
         return Jwts.builder()
