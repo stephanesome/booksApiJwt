@@ -1,6 +1,6 @@
 package seg3x02.booksrestapi.entities
 
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "BookOrder")

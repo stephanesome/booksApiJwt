@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -38,16 +39,20 @@ class ApiSecurityConfig(var userDetailsService: UserDetailsServiceImpl,
 
     @Bean
     fun configure(http: HttpSecurity): SecurityFilterChain {
-        http.cors().and().csrf().disable()
-            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeRequests().antMatchers("/auth/**").permitAll()
-            .antMatchers(HttpMethod.GET,"/books-api/**").hasAnyRole("USER", "ADMIN")
-            .antMatchers(HttpMethod.POST, "/books-api/**").hasRole("ADMIN")
-            .antMatchers(HttpMethod.DELETE, "/books-api/**").hasRole("ADMIN")
-            .antMatchers(HttpMethod.PUT, "/books-api/**").hasRole("ADMIN")
-            .antMatchers(HttpMethod.PATCH, "/books-api/**").hasRole("ADMIN")
-            .anyRequest().authenticated()
+        http.cors(Customizer.withDefaults())
+            .csrf(({ csrf -> csrf.disable() }))
+            .exceptionHandling {exceptionHandling ->exceptionHandling.authenticationEntryPoint(unauthorizedHandler)}
+            .sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .authorizeHttpRequests { auth ->
+                auth
+                    .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/books-api/**").hasAnyRole("USER", "ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/books-api/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/books-api/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/books-api/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PATCH, "/books-api/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
+            }
         http.addFilterBefore(authenticationJwtTokenFilter(),
             UsernamePasswordAuthenticationFilter::class.java)
         return http.build()

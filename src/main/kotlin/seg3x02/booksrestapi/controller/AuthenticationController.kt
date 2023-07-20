@@ -1,5 +1,6 @@
 package seg3x02.booksrestapi.controller
 
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -16,7 +17,6 @@ import seg3x02.booksrestapi.security.UserDetailsImpl
 import seg3x02.booksrestapi.security.credentials.ERole
 import seg3x02.booksrestapi.security.credentials.User
 import seg3x02.booksrestapi.security.jwt.JwtUtils
-import javax.validation.Valid
 
 @RestController
 @CrossOrigin(origins = ["http://localhost:4200"])
