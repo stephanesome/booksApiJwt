@@ -22,25 +22,26 @@ export class LoginComponent {
     return this.loginService.isLoggedIn();
   }
 
-  get loggedUser(): string {
+  get loggedUser(): string|null {
     return this.loginService.getUser();
   }
 
   checkLogin(): void {
     this.message = '';
-    this.loginService.login(this.username, this.password).subscribe(
-      data => {
-        this.tokenService.saveToken(data.token);
-        this.tokenService.saveUserName(data.username);
-        this.tokenService.saveUserRole(data.role);
-        this.loggedIn = true;
-      },
-      err => {
-        this.loggedIn = false;
-        this.message = 'Invalid Login ' + err.error.message;
-        setTimeout(() => {
-          this.message = '';
-        }, 3000);
+    this.loginService.login(this.username, this.password).subscribe({
+        next: data => {
+          this.tokenService.saveToken(data.token);
+          this.tokenService.saveUserName(data.username);
+          this.tokenService.saveUserRole(data.role);
+          this.loggedIn = true;
+        },
+        error: err => {
+          this.loggedIn = false;
+          this.message = 'Invalid Login ' + err.error.message;
+          setTimeout(() => {
+            this.message = '';
+          }, 3000);
+        }
       }
     );
   }

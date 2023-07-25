@@ -25,7 +25,7 @@ export class AuthenticationService {
     this.tokenService.signOut();
   }
 
-  getUser(): string {
+  getUser(): string|null {
     return this.tokenService.getUser();
   }
 

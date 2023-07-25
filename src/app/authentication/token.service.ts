@@ -20,7 +20,7 @@ export class TokenService {
     window.sessionStorage.setItem(TOKEN, token);
   }
 
-  public getToken(): string {
+  public getToken(): string|null {
     return <string>sessionStorage.getItem(TOKEN);
   }
 
@@ -34,11 +34,11 @@ export class TokenService {
     window.sessionStorage.setItem(USER_ROLE, role);
   }
 
-  public getUser(): string {
+  public getUser(): string|null {
     return <string>sessionStorage.getItem(USER_NAME);
   }
 
-  public getRole(): string {
+  public getRole(): string|null {
     return <string>sessionStorage.getItem(USER_ROLE);
   }
 }

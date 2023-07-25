@@ -35,20 +35,21 @@ export class SignupComponent implements OnInit {
   }
 
   register(): void {
-    this.authService.register(this.username.value, this.password.value).subscribe(
-      data => {
-        this.message = data.message;
-        setTimeout(() => {
-          this.message = '';
-          this.signupForm.reset();
-        }, 3000);
-      },
-      error => {
-        this.message = 'Registration ' + error.error.message;
-        setTimeout(() => {
-          this.message = '';
-          this.signupForm.reset();
-        }, 3000);
+    this.authService.register(this.username.value, this.password.value).subscribe({
+        next: data => {
+          this.message = data.message;
+          setTimeout(() => {
+            this.message = '';
+            this.signupForm.reset();
+          }, 3000);
+        },
+        error: error => {
+          this.message = 'Registration ' + error.error.message;
+          setTimeout(() => {
+            this.message = '';
+            this.signupForm.reset();
+          }, 3000);
+        }
       }
     );
   }
