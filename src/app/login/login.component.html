@@ -3,13 +3,13 @@
 </div>
 
 <div class="container" *ngIf="!isLoggedIn">
-  <div class="form-group">
-    <label for="username">UserName : </label>
-    <input type="text" name="username" id="username" [(ngModel)]="username">
+  <div class="mb-2">
+    <label for="username" class="form-label">UserName : </label>
+    <input type="text" name="username" id="username" [(ngModel)]="username" class="form-control">
   </div>
-  <div class="form-group">
-    <label for="password">Password : </label>
-    <input type="password" name="password" id="password" [(ngModel)]="password">
+  <div class="mb-2">
+    <label for="password" class="form-label">Password  : </label>
+    <input type="password" name="password" id="password" [(ngModel)]="password" class="form-control">
   </div>
   <button (click)=checkLogin() class="btn btn-success">
     Login

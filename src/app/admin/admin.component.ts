@@ -76,17 +76,18 @@ export class AdminComponent implements OnInit {
       Number(this.bookForm.value.year),
       <string>this.bookForm.value.description);
     const authors = <Author[]>this.bookForm.value.authors;
-    this.booksService.addBook(book).subscribe(
-      (response) => {
+    this.booksService.addBook(book).subscribe({
+      next: (response) => {
         authors.forEach(
           (author: Author) => {
-            this.booksService.getAuthorsNamed(author.firstName, author.lastName).subscribe(
-              (authorList: Author[]) => {
-                if (authorList === undefined || authorList.length === 0) {
-                  this.booksService.addBookAuthor(response.id, author).subscribe();
-                } else {
-                  // *** Assumes unique firstName/LastName for Authors
-                  this.booksService.updateBookAuthors(response.id, authorList[0].id).subscribe();
+            this.booksService.getAuthorsNamed(author.firstName, author.lastName).subscribe({
+                next: (authorList: Author[]) => {
+                  if (authorList === undefined || authorList.length === 0) {
+                    this.booksService.addBookAuthor(response.id, author).subscribe();
+                  } else {
+                    // *** Assumes unique firstName/LastName for Authors
+                    this.booksService.updateBookAuthors(response.id, authorList[0].id).subscribe();
+                  }
                 }
               }
             );
@@ -94,10 +95,10 @@ export class AdminComponent implements OnInit {
         );
         this.showMessage('info', `The was successfully added with id ${response.id}`);
       },
-      (_: any) => {
+      error: (_: any) => {
         this.showMessage('error', 'Unable to add the book');
       }
-    );
+    });
     this.bookForm.reset();
     this.authors.clear();
   }
