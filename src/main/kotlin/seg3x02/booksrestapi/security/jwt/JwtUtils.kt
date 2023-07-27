@@ -12,7 +12,6 @@ import java.util.stream.Collectors
 
 @Service
 class JwtUtils(private val encoder: JwtEncoder) {
-
     fun generateJwtToken(authentication: Authentication): String {
         val now = Instant.now()
         val scope: String = authentication.authorities.stream()
