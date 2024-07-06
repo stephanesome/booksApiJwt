@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ActivatedRoute, Router, Routes} from '@angular/router';
+import { ActivatedRoute, Router, Routes, RouterOutlet } from '@angular/router';
 import {BookComponent} from './book/book.component';
 
 export const booksRoutes: Routes = [
@@ -7,9 +7,11 @@ export const booksRoutes: Routes = [
 ];
 
 @Component({
-  selector: 'app-books',
-  templateUrl: './books.component.html',
-  styleUrls: ['./books.component.css']
+    selector: 'app-books',
+    templateUrl: './books.component.html',
+    styleUrls: ['./books.component.css'],
+    standalone: true,
+    imports: [RouterOutlet]
 })
 export class BooksComponent {
   constructor(private router: Router, private route: ActivatedRoute) { }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormControl, Validators} from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {Author, Book} from '../books/model/book';
 import {BooksService} from '../books/service/books.service';
+import { NgStyle, NgFor } from '@angular/common';
 
 function categoryValidator(control: FormControl<string>): { [s: string]: boolean } | null {
   const validCategories = ['Kids', 'Tech', 'Cook'];
@@ -12,9 +13,11 @@ function categoryValidator(control: FormControl<string>): { [s: string]: boolean
 }
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+    selector: 'app-admin',
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.css'],
+    standalone: true,
+    imports: [NgStyle, FormsModule, ReactiveFormsModule, NgFor]
 })
 export class AdminComponent implements OnInit {
   message: string = '';

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, UntypedFormBuilder, ValidationErrors, Validators} from "@angular/forms";
+import { AbstractControl, UntypedFormBuilder, ValidationErrors, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {AuthenticationService} from "../authentication/authentication.service";
+import { NgIf } from '@angular/common';
 
 function passwordMatcher(pwGrp: AbstractControl): ValidationErrors | null {
   const passwd = pwGrp.get('password');
@@ -9,9 +10,11 @@ function passwordMatcher(pwGrp: AbstractControl): ValidationErrors | null {
 }
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+    selector: 'app-signup',
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.css'],
+    standalone: true,
+    imports: [NgIf, FormsModule, ReactiveFormsModule]
 })
 export class SignupComponent implements OnInit {
   message: string = '';

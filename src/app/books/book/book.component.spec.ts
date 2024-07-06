@@ -10,9 +10,8 @@ describe('BookComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BookComponent ],
-      imports: [RouterTestingModule, HttpClientTestingModule]
-    })
+    imports: [RouterTestingModule, HttpClientTestingModule, BookComponent]
+})
     .compileComponents();
   });
 
