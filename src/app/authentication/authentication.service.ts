@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import {Router} from '@angular/router';
+import {inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import {TokenService} from './token.service';
@@ -10,9 +9,8 @@ const Url = 'http://localhost:8080/auth/';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private router: Router,
-              private http: HttpClient,
-              private tokenService: TokenService) {}
+  private http: HttpClient = inject(HttpClient);
+  private tokenService: TokenService = inject(TokenService);
 
   login(username: string, password: string): Observable<any> {
     return this.http.post(Url + 'signin', {

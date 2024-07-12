@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {AuthenticationService} from "./authentication/authentication.service";
 import { RouterLink, RouterOutlet } from '@angular/router';
 
@@ -10,9 +10,10 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     imports: [RouterLink, RouterOutlet]
 })
 export class AppComponent {
+  private authService: AuthenticationService = inject(AuthenticationService);
   title = 'book-store';
+
   get login_label(): string {
     return this.authService.isLoggedIn() ? 'Logout' : 'Login';
   }
-  constructor(private authService: AuthenticationService) {}
 }

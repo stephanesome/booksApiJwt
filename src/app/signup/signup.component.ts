@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, ValidationErrors, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {AuthenticationService} from "../authentication/authentication.service";
 import { NgIf } from '@angular/common';
@@ -16,7 +16,9 @@ function passwordMatcher(pwGrp: AbstractControl): ValidationErrors | null {
     standalone: true,
     imports: [NgIf, FormsModule, ReactiveFormsModule]
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
+  private builder: UntypedFormBuilder = inject(UntypedFormBuilder);
+  private authService: AuthenticationService = inject(AuthenticationService);
   message: string = '';
   signupForm = this.builder.group({
     username: ['', Validators.required],
@@ -30,12 +32,6 @@ export class SignupComponent implements OnInit {
   get password(): AbstractControl {return <AbstractControl>this.signupForm.get('pwGroup')!.get('password'); }
   get confirmPassword(): AbstractControl {return <AbstractControl>this.signupForm.get('pwGroup')!.get('confirmPassword'); }
   get pwGroup(): AbstractControl {return <AbstractControl>this.signupForm.get('pwGroup'); }
-
-  constructor(private builder: UntypedFormBuilder,
-              private authService: AuthenticationService) { }
-
-  ngOnInit(): void {
-  }
 
   register(): void {
     this.authService.register(this.username.value, this.password.value).subscribe({

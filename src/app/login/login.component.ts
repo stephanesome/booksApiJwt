@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
 import {TokenService} from '../authentication/token.service';
@@ -13,14 +13,12 @@ import { NgIf } from '@angular/common';
     imports: [NgIf, FormsModule]
 })
 export class LoginComponent {
+  private loginService: AuthenticationService = inject(AuthenticationService);
+  private tokenService: TokenService = inject(TokenService);
   username = '';
   password = '';
   message!: string;
   loggedIn = false;
-
-  constructor(private router: Router,
-              private loginService: AuthenticationService,
-              private tokenService: TokenService) { }
 
   get isLoggedIn(): boolean {
     return this.loginService.isLoggedIn();

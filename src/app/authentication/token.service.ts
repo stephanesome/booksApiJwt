@@ -8,9 +8,6 @@ export const USER_ROLE = 'role';
   providedIn: 'root'
 })
 export class TokenService {
-
-  constructor() { }
-
   signOut(): void {
     window.sessionStorage.clear();
   }
