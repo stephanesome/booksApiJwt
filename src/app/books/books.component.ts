@@ -7,11 +7,11 @@ export const booksRoutes: Routes = [
 ];
 
 @Component({
-    selector: 'app-books',
-    templateUrl: './books.component.html',
-    styleUrls: ['./books.component.css'],
-    standalone: true,
-    imports: [RouterOutlet]
+  selector: 'app-books',
+  templateUrl: './books.component.html',
+  styleUrls: ['./books.component.css'],
+  standalone: true,
+  imports: [RouterOutlet]
 })
 export class BooksComponent {
   constructor(private router: Router, private route: ActivatedRoute) { }

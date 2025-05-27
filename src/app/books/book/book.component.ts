@@ -4,14 +4,14 @@ import {Book} from '../model/book';
 import {BooksService} from '../service/books.service';
 import {Subscription} from "rxjs";
 import { AuthornamesPipe } from '../../pipes/authornames.pipe';
-import { NgIf } from '@angular/common';
+
 
 @Component({
-    selector: 'app-book',
-    templateUrl: './book.component.html',
-    styleUrls: ['./book.component.css'],
-    standalone: true,
-    imports: [NgIf, AuthornamesPipe]
+  selector: 'app-book',
+  templateUrl: './book.component.html',
+  styleUrls: ['./book.component.css'],
+  standalone: true,
+  imports: [AuthornamesPipe]
 })
 export class BookComponent implements OnInit, OnDestroy {
   selectedBook!: Book | null;
