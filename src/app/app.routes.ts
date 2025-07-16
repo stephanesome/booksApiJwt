@@ -1,34 +1,34 @@
 import { Routes } from '@angular/router';
-import {HomeComponent} from "./home/home.component";
-import {AboutComponent} from "./about/about.component";
-import {ContactComponent} from "./contact/contact.component";
-import {BooksComponent} from "./books/books.component";
-import {BookComponent} from "./books/book/book.component";
-import {LoginComponent} from "./login/login.component";
-import {AdminComponent} from "./admin/admin.component";
+import {Home} from "./home/home";
+import {About} from "./about/about";
+import {Contact} from "./contact/contact";
+import {Books} from "./books/books";
+import {Book} from "./books/book/book";
+import {Login} from "./login/login";
+import {Admin} from "./admin/admin";
 import {loggedInGuard} from "./authentication/logged-in.guard";
 import {adminGuard} from "./authentication/admin.guard";
-import {SignupComponent} from "./signup/signup.component";
+import {Signup} from "./signup/signup";
 
 const booksRoutes: Routes = [
-  {path: ':id', component: BookComponent}
+  {path: ':id', component: Book}
 ];
 
 export const routes: Routes = [
-  {path: 'home', component: HomeComponent},
-  {path: 'about', component: AboutComponent},
-  {path: 'contact', component: ContactComponent},
-  { path: 'login', component: LoginComponent },
+  {path: 'home', component: Home},
+  {path: 'about', component: About},
+  {path: 'contact', component: Contact},
+  { path: 'login', component: Login },
   {
     path: 'admin',
-    component: AdminComponent,
+    component: Admin,
     canActivate: [ adminGuard  ]
   },
-  {path: 'books', component: BooksComponent,
+  {path: 'books', component: Books,
     canActivate: [ loggedInGuard ],
     children: booksRoutes
   },
-  { path: 'signup', component: SignupComponent },
+  { path: 'signup', component: Signup },
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: '**', component: HomeComponent}
+  {path: '**', component: Home}
 ];
